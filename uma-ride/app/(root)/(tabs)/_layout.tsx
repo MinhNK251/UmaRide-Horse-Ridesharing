@@ -5,7 +5,7 @@ import "react-native-reanimated";
 const Layout = () => {
   return (
     <Stack>
-      <Stack.Screen name="temp" options={{ headerShown: false }} />
+      <Stack.Screen name="home" options={{ headerShown: false }} />
     </Stack>
   );
 };

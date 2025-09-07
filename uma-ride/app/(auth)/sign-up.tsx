@@ -1,5 +1,5 @@
 import { Link, router } from "expo-router";
-import { Image, ScrollView, Text, View } from "react-native";
+import { Alert, Image, ScrollView, Text, View } from "react-native";
 import CustomButton from "@/components/CustomButton";
 import { icons, images } from "@/constants";
 import InputField from "@/components/InputField";
@@ -38,8 +38,9 @@ const SignUp = () => {
         ...verification,
         state: "pending",
       });
-    } catch (err) {
-      console.error(JSON.stringify(err, null, 2));
+    } catch (err: any) {
+      // console.error(JSON.stringify(err, null, 2));
+      Alert.alert("Error", err.errors[0].longMessage);
     }
   };
 
@@ -60,7 +61,6 @@ const SignUp = () => {
           ...verification,
           state: "success",
         });
-        router.replace("/");
       } else {
         setVerification({
           ...verification,
@@ -68,7 +68,7 @@ const SignUp = () => {
           state: "failed",
         });
         // If the status is not complete, check why
-        console.error(JSON.stringify(signUpAttempt, null, 2));
+        // console.error(JSON.stringify(signUpAttempt, null, 2));
       }
     } catch (err: any) {
       setVerification({
@@ -76,7 +76,6 @@ const SignUp = () => {
         error: err.errors[0].longMessage,
         state: "failed",
       });
-      console.error(JSON.stringify(err, null, 2));
     }
   };
 
@@ -150,7 +149,7 @@ const SignUp = () => {
             <InputField
               label={"Code"}
               icon={icons.lock}
-              placeholder={"12345"}
+              placeholder={"XXXXXX"}
               value={verification.code}
               keyboardType="numeric"
               onChangeText={(code) =>
