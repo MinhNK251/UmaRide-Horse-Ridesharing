@@ -5,7 +5,6 @@ import { icons, images } from "@/constants";
 import { Link } from "expo-router";
 import { useState } from "react";
 import { ScrollView, Text, View, Image } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const SignIn = () => {
   const [form, setForm] = useState({
