@@ -1,13 +1,103 @@
-import "@/global.css";
-import { Stack } from "expo-router";
-import "react-native-reanimated";
+import { Tabs } from "expo-router";
+import {
+  Image,
+  ImageSourcePropType,
+  Pressable,
+  View,
+  ViewStyle,
+} from "react-native";
+import { icons } from "@/constants";
 
-const Layout = () => {
+const TabIcon = ({
+  source,
+  focused,
+}: {
+  source: ImageSourcePropType;
+  focused: boolean;
+}) => (
+  <View className={`flex flex-row justify-center items-center rounded-full`}>
+    <View
+      className={`rounded-full w-12 h-12 items-center justify-center ${focused ? "bg-general-400" : ""}`}
+    >
+      <Image source={source} resizeMode="contain" className="w-7 h-7" />
+    </View>
+  </View>
+);
+
+export default function Layout() {
   return (
-    <Stack>
-      <Stack.Screen name="home" options={{ headerShown: false }} />
-    </Stack>
+    <Tabs
+      initialRouteName="home"
+      screenOptions={{
+        tabBarActiveTintColor: "white",
+        tabBarInactiveTintColor: "white",
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          backgroundColor: "#333333",
+          borderRadius: 50,
+          paddingBottom: 28,
+          overflow: "hidden",
+          marginHorizontal: 10,
+          marginBottom: 40,
+          height: 55,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexDirection: "row",
+          position: "absolute",
+        },
+        // turn off ripple
+        tabBarButton: (props) => (
+          <Pressable
+            android_ripple={{ color: "transparent" }}
+            style={props.style as ViewStyle}
+            onPress={props.onPress}
+          >
+            {props.children}
+          </Pressable>
+        ),
+      }}
+    >
+      <Tabs.Screen
+        name="home"
+        options={{
+          title: "Home",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <TabIcon source={icons.home} focused={focused} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="rides"
+        options={{
+          title: "Rides",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <TabIcon source={icons.list} focused={focused} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="chat"
+        options={{
+          title: "Chat",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <TabIcon source={icons.chat} focused={focused} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Profile",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <TabIcon source={icons.profile} focused={focused} />
+          ),
+        }}
+      />
+    </Tabs>
   );
-};
-
-export default Layout;
+}
