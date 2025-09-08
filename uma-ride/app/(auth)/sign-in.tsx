@@ -33,7 +33,7 @@ const SignIn = () => {
         Alert.alert("Error", "Log in failed. Please try again.");
       }
     } catch (err: any) {
-      console.error(JSON.stringify(err, null, 2));
+      // console.error(JSON.stringify(err, null, 2));
       Alert.alert("Error", err.errors[0].longMessage);
     }
   }, [isLoaded, form]);
