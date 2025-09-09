@@ -1,11 +1,11 @@
 -- CREATE Drivers Table SQL Query
-CREATE TABLE drivers (
+CREATE TABLE jockeys (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     profile_image_url TEXT,
-    car_image_url TEXT,
-    car_seats INTEGER NOT NULL CHECK (car_seats > 0),
+    horse_image_url TEXT,
+    horse_seats INTEGER NOT NULL CHECK (horse_seats > 0),
     rating DECIMAL(3, 2) CHECK (rating >= 0 AND rating <= 5)
 );
 
@@ -21,7 +21,7 @@ CREATE TABLE rides (
     ride_time INTEGER NOT NULL,
     fare_price DECIMAL(10, 2) NOT NULL CHECK (fare_price >= 0),
     payment_status VARCHAR(20) NOT NULL,
-    driver_id INTEGER REFERENCES drivers(id),
+    jockey_id INTEGER REFERENCES jockeys(id),
     user_id VARCHAR(100) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ); 
