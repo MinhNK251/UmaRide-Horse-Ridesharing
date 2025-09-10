@@ -1,5 +1,38 @@
 import { TextInputProps, TouchableOpacityProps } from "react-native";
 
+declare interface Jockey {
+  id: number;
+  first_name: string;
+  last_name: string;
+  profile_image_url: string;
+  horse_image_url: string;
+  horse_seats: number;
+  rating: number;
+}
+
+declare interface MarkerData {
+  latitude: number;
+  longitude: number;
+  id: number;
+  title: string;
+  profile_image_url: string;
+  horse_image_url: string;
+  horse_seats: number;
+  rating: number;
+  first_name: string;
+  last_name: string;
+  time?: number;
+  price?: string;
+}
+
+declare interface MapProps {
+  destinationLatitude?: number;
+  destinationLongitude?: number;
+  onJockeyTimesCalculated?: (jockeysWithTimes: MarkerData[]) => void;
+  selectedJockey?: number | null;
+  onMapReady?: () => void;
+}
+
 declare interface Ride {
   origin_address: string;
   destination_address: string;
@@ -38,4 +71,55 @@ declare interface InputFieldProps extends TextInputProps {
   inputStyle?: string;
   iconStyle?: string;
   className?: string;
+}
+
+declare interface GoogleInputProps {
+  icon?: string;
+  initialLocation?: string;
+  containerStyle?: string;
+  textInputBackgroundColor?: string;
+  handlePress: ({
+    latitude,
+    longitude,
+    address,
+  }: {
+    latitude: number;
+    longitude: number;
+    address: string;
+  }) => void;
+}
+
+declare interface LocationStore {
+  userLatitude: number | null;
+  userLongitude: number | null;
+  userAddress: string | null;
+  destinationLatitude: number | null;
+  destinationLongitude: number | null;
+  destinationAddress: string | null;
+  setUserLocation: ({
+    latitude,
+    longitude,
+    address,
+  }: {
+    latitude: number;
+    longitude: number;
+    address: string;
+  }) => void;
+  setDestinationLocation: ({
+    latitude,
+    longitude,
+    address,
+  }: {
+    latitude: number;
+    longitude: number;
+    address: string;
+  }) => void;
+}
+
+declare interface JockeyStore {
+  jockeys: MarkerData[];
+  selectedJockey: number | null;
+  setSelectedJockey: (jockeyId: number) => void;
+  setJockeys: (jockeys: MarkerData[]) => void;
+  clearSelectedJockey: () => void;
 }
