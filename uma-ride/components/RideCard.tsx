@@ -53,7 +53,7 @@ const RideCard = ({ ride }: { ride: Ride }) => {
 
           <View className="flex flex-row items-center w-full justify-between mb-5">
             <Text className="text-md font-JakartaMedium text-gray-500">
-              Car Seats
+              Horse Seats
             </Text>
             <Text className="text-md font-JakartaBold">
               {ride.jockey.horse_seats}
