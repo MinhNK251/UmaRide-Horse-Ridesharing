@@ -2,14 +2,27 @@ import CustomButton from "@/components/CustomButton";
 import { onboarding } from "@/constants";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
-import { Text, TouchableOpacity, View, Image } from "react-native";
+import { Text, TouchableOpacity, View, Image, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Swiper from "react-native-swiper";
+import SwiperFlatList from "react-native-swiper-flatlist";
+
+const { width } = Dimensions.get("window");
 
 const Onboarding = () => {
-  const swiperRef = useRef<Swiper>(null);
+  const swiperRef = useRef<SwiperFlatList>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const isLastSlide = activeIndex === onboarding.length - 1;
+
+  const handleNext = () => {
+    if (isLastSlide) {
+      router.replace("/(auth)/sign-up");
+    } else {
+      swiperRef.current?.scrollToIndex({
+        index: activeIndex + 1,
+        animated: true,
+      });
+    }
+  };
 
   return (
     <SafeAreaView className="flex h-full items-center justify-between bg-white">
@@ -22,19 +35,15 @@ const Onboarding = () => {
         <Text className="text-black text-md font-JakartaBold">Skip</Text>
       </TouchableOpacity>
 
-      <Swiper
+      <SwiperFlatList
         ref={swiperRef}
-        loop={false}
-        dot={
-          <View className="w-[32px] h-[4px] mx-1 bg-[#E2F0E9] rounded-full" />
-        }
-        activeDot={
-          <View className="w-[32px] h-[4px] mx-1 bg-[#02FF5B] rounded-full" />
-        }
-        onIndexChanged={(index) => setActiveIndex(index)}
-      >
-        {onboarding.map((item) => (
-          <View key={item.id} className="flex items-center justify-center p-5">
+        data={onboarding}
+        renderItem={({ item }) => (
+          <View
+            key={item.id}
+            style={{ width }}
+            className="flex items-center justify-center px-5 mb-16"
+          >
             <Image
               source={item.image}
               className="w-full h-[300px]"
@@ -49,17 +58,29 @@ const Onboarding = () => {
               {item.description}
             </Text>
           </View>
-        ))}
-      </Swiper>
+        )}
+        showPagination
+        paginationDefaultColor="#E2F0E9"
+        paginationActiveColor="#02FF5B"
+        paginationStyleItem={{
+          width: 32,
+          height: 4,
+          marginHorizontal: 4,
+          borderRadius: 999,
+        }}
+        onChangeIndex={({ index }) => setActiveIndex(index)}
+        horizontal
+        pagingEnabled
+        snapToAlignment="center"
+        showsHorizontalScrollIndicator={false}
+        decelerationRate="fast"
+        autoplay={false}
+      />
 
       <CustomButton
         title={isLastSlide ? "Get Started" : "Next"}
-        onPress={() =>
-          isLastSlide
-            ? router.replace("/(auth)/sign-up")
-            : swiperRef.current?.scrollBy(1)
-        }
-        className="w-3/5 mt-10 mb-5"
+        onPress={handleNext}
+        className="w-2/3 mx-auto"
       />
     </SafeAreaView>
   );
