@@ -68,7 +68,7 @@ const Home = () => {
                 Welcome, {""}
                 {user?.firstName ||
                   user?.emailAddresses[0].emailAddress.split("nk")[0]}{" "}
-                👋
+                👋 {""}
               </Text>
               <TouchableOpacity
                 onPress={handleSignOut}
@@ -88,7 +88,7 @@ const Home = () => {
               <Text className="text-xl text-white font-JakartaBold mt-5 mb-3">
                 Your current location
               </Text>
-              <View className="flex flex-row items-center bg-transparent h-[300px]">
+              <View className="flex flex-row items-center bg-transparent h-[300px] rounded-2xl overflow-hidden">
                 <Map />
               </View>
             </>
