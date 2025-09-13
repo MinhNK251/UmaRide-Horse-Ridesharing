@@ -4,7 +4,6 @@ import {
   generateMarkersFromData,
 } from "@/lib/map";
 import { useJockeyStore, useLocationStore } from "@/store";
-import { Text } from "react-native";
 import MapView, { Marker, PROVIDER_DEFAULT } from "react-native-maps";
 import { mockJockeys } from "@/constants/mockJockeys";
 import { useEffect, useState } from "react";

@@ -30,7 +30,14 @@ const Home = () => {
     router.replace("/(auth)/sign-in");
   };
 
-  const handleDestinationPress = () => {};
+  const handleDestinationPress = (location: {
+    latitude: number;
+    longitude: number;
+    address: string;
+  }) => {
+    setDestinationLocation(location);
+    // router.push("/(root)/find-ride");
+  };
 
   useEffect(() => {
     const requestLocation = async () => {
@@ -59,8 +66,8 @@ const Home = () => {
   return (
     <SafeAreaView className="flex-1 justify-center items-center bg-success-500">
       <FlatList
-        data={mockRides?.slice(0, 5)}
-        // data={[]}
+        // data={mockRides?.slice(0, 5)}
+        data={[]}
         renderItem={({ item }) => <RideCard ride={item} />}
         className="px-5"
         keyboardShouldPersistTaps="handled"
@@ -107,12 +114,12 @@ const Home = () => {
 
             <GoogleTextInput
               icon={icons.search}
-              containerStyle="bg-white shadow-md shadow-neutral-300"
+              // containerStyle="bg-white shadow-md shadow-neutral-300"
               handlePress={handleDestinationPress}
             />
 
             <>
-              <Text className="text-xl text-white font-JakartaBold mt-5 mb-3">
+              <Text className="text-xl text-white font-JakartaBold my-3">
                 Your current location
               </Text>
               <View className="flex flex-row items-center bg-transparent h-[300px] rounded-2xl overflow-hidden">
