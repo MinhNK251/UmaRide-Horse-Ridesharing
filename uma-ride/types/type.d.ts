@@ -89,6 +89,14 @@ declare interface GoogleInputProps {
   }) => void;
 }
 
+declare interface PaymentProps {
+  fullName: string;
+  email: string;
+  amount: string;
+  driverId: number;
+  rideTime: number;
+}
+
 declare interface LocationStore {
   userLatitude: number | null;
   userLongitude: number | null;
@@ -122,4 +130,10 @@ declare interface JockeyStore {
   setSelectedJockey: (jockeyId: number) => void;
   setJockeys: (jockeys: MarkerData[]) => void;
   clearSelectedJockey: () => void;
+}
+
+declare interface DriverCardProps {
+  item: MarkerData;
+  selected: number;
+  setSelected: () => void;
 }
